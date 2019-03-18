@@ -1,0 +1,4 @@
+[DEFAULT]
+API_KEY = MySportsFeeds API key
+PASSWORD = MySportsFeed account password
+VERSION = 1.1
