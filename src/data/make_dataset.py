@@ -30,13 +30,13 @@ def make_dataset():
         base_url = 'https://www.baseball-reference.com/leagues/' + args.league + '/'
 
         # batting
-        stats_to_keep = ['G', 'R', 'HR', 'RBI', 'SB', 'batting_avg']
+        stats_to_keep = ['G', 'R', 'HR', 'RBI', 'SB', 'batting_avg', 'pos_summary']
         # season: YYYY
         url = base_url + args.season + '-standard-batting.shtml#players_standard_batting::none'
         scraper_.get_data(url, stats_to_keep)
 
         # pitching
-        stats_to_keep = ['W', 'SV', 'SO', 'ERA', 'WHIP', 'IP']
+        stats_to_keep = ['W', 'SV', 'SO', 'earned_run_avg', 'whip', 'IP', 'GS', 'GF']
         url = base_url + args.season + '-standard-pitching.shtml#players_standard_pitching::none'
         scraper_.get_data(url, stats_to_keep)
 

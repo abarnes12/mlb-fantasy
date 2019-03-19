@@ -1,5 +1,6 @@
 import configparser
 from pathlib import Path
+import re
 
 from ohmysportsfeedspy import MySportsFeeds
 import urllib3
@@ -92,6 +93,10 @@ class Scraper_BS(object):
             player = ''
             for child in rows[i].children:
                 try:
+                    #if child.attrs['data-stat'] in 'pos_summary':
+                    #    stat = child.attrs['data-stat']
+                    #    value = child.contents[0]
+                    #    stats[stat] = value
                     if child.attrs['data-stat'] in stats_to_keep:
                         stat = child.attrs['data-stat']
                         if len(child.contents) > 0:
@@ -107,13 +112,15 @@ class Scraper_BS(object):
             for stat in stats_to_keep:
                 if stat not in list(stats.keys()):
                     stats[stat] = None
-                if stats[stat] is not None:
+                if stats[stat] is not None and stat not in 'pos_summary':
                     try:
                         stats[stat] = float(stats[stat])
                     except ValueError:
                         not_real = True
             if not_real:
                 break
+            #if 'pos_summary' in list(stats.keys()):
+            #    stats_to_keep.append('pos_summary')
             players[player] = [stats[stat] for stat in stats_to_keep]
 
         df = pd.DataFrame.from_dict(players, orient='index', columns=stats_to_keep)
